@@ -104,6 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const progressContainer = document.getElementById("progressContainer");
     const progressFill = document.getElementById("progressFill");
     const progressText = document.getElementById("progressText");
+    const tipText = document.getElementById("tipText"); // ✅ 获取提示文本元素
     const retryBtn = document.getElementById("retryBtn");
     const historyBtn = document.getElementById("historyBtn");
     const historyList = document.getElementById("historyList");
@@ -143,11 +144,30 @@ document.addEventListener("DOMContentLoaded", function () {
         progressContainer.style.display = "flex";
         progressFill.style.width = "0%";
         progressText.textContent = "0%";
+        tipText.textContent = "";
+        tipText.classList.remove("show");
 
         // 动画填充
         setTimeout(() => {
             progressFill.style.width = percentage + "%";
             progressText.textContent = percentage + "%";
+
+            // ✅ 根据百分比设置提示文本
+            let tip = "";
+            if (percentage <= 5) {
+                tip = "拉完了，不推荐使用";
+            } else if (percentage <= 25) {
+                tip = "不太行，建议换一个";
+            } else if (percentage <= 50) {
+                tip = "还可以，酌情使用";
+            } else if (percentage <= 75) {
+                tip = "非常好，建议使用";
+            } else {
+                tip = "顶级，没被抢就用这个";
+            }
+
+            tipText.textContent = tip;
+            tipText.classList.add("show");
         }, 100);
 
         // 保存历史
@@ -163,5 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
         progressContainer.style.display = "none";
         retryBtn.style.display = "none";
         submitBtn.style.display = "block";
+        tipText.textContent = "";
+        tipText.classList.remove("show");
     });
 });
