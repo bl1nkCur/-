@@ -15,7 +15,7 @@
 [data-theme="dark"] {
     /* 暗色模式 */
     --bg-color: #121212;
-    --text-color: #7D2933;
+    --text-color: #ffffff; /* ✅ 夜间模式文本为白色 */
     --input-bg: rgba(30, 30, 30, 0.4);
     --btn-bg: #FFDADA;
     --btn-hover: #ffb6b6;
@@ -41,7 +41,6 @@ body {
     backdrop-filter: blur(0);
 }
 
-/* 毛玻璃背景（可选：给 body 加轻微模糊背景） */
 body::before {
     content: "";
     position: fixed;
@@ -51,7 +50,7 @@ body::before {
     transition: background-color 0.6s ease;
 }
 
-/* 主题切换按钮 */
+/* ========== 主题切换按钮：无背景、无动画 ========== */
 .theme-toggle {
     position: absolute;
     top: 20px;
@@ -60,22 +59,19 @@ body::before {
     height: 50px;
     border: none;
     border-radius: 24px;
-    background-color: var(--btn-bg);
-    color: #7D2933;
+    background: none;
+    color: var(--text-color);
     font-size: 20px;
     cursor: pointer;
-    box-shadow: 0 4px 12px var(--shadow);
-    transition: all 0.4s ease;
+    box-shadow: none;
+    transition: none;
     z-index: 100;
 }
 
-.theme-toggle:hover {
-    transform: rotate(20deg) scale(1.05);
-    box-shadow: 0 6px 16px var(--shadow);
-}
-
+.theme-toggle:hover,
 .theme-toggle:active {
-    transform: scale(0.95);
+    transform: none;
+    box-shadow: none;
 }
 
 /* 提交历史按钮 */
@@ -85,7 +81,7 @@ body::before {
     left: 20px;
     padding: 8px 16px;
     font-size: 14px;
-    color: #7D2933;
+    color: var(--text-color);
     background-color: var(--btn-bg);
     border: none;
     border-radius: 24px;
@@ -174,7 +170,7 @@ input[type="text"]::placeholder {
     align-items: center;
     width: 300px;
     max-width: 90%;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .progress-bar {
@@ -200,8 +196,22 @@ input[type="text"]::placeholder {
     font-size: 16px;
     color: var(--text-color);
     font-weight: 500;
-    transition: color 0.5s ease;
     min-width: 40px;
+}
+
+/* ✅ 提示文本 */
+.tip-text {
+    margin-top: 8px;
+    font-size: 16px;
+    color: var(--text-color);
+    text-align: center;
+    min-height: 1.5em;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.tip-text.show {
+    opacity: 1;
 }
 
 /* 所有按钮通用样式 */
