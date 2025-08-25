@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>输入文本页面</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- 主题切换按钮 -->
+    <button class="theme-toggle" id="themeToggle">🌙</button>
+
+    <!-- 提交历史按钮 -->
+    <button class="history-btn" id="historyBtn">提交历史</button>
+
+    <!-- 提交历史列表 -->
+    <div class="history-list" id="historyList">
+        <ul id="historyItems"></ul>
+    </div>
+
+    <h1>请输入文本</h1>
+    <input type="text" id="textInput" placeholder="在此输入..." />
+
+    <!-- 提交按钮 -->
+    <button id="submitBtn">提交</button>
+
+    <!-- 进度条容器 -->
+    <div class="progress-container" id="progressContainer">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">0%</div>
+    </div>
+
+    <!-- 再试一次按钮 -->
+    <button id="retryBtn" style="display: none;">再试一次</button>
+
+    <!-- 引入 JS -->
+    <script src="script.js"></script>
+</body>
+</html>
