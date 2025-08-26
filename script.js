@@ -9,6 +9,7 @@ const translations = {
         historyBtn: "提交历史",
         noHistory: "暂无提交记录",
         alert: "请输入内容！",
+        result: "检测结果",
         tips: {
             veryLow: "拉完了，不推荐使用",
             low: "不太行，建议换一个",
@@ -26,6 +27,7 @@ const translations = {
         historyBtn: "Submission History",
         noHistory: "No submission history",
         alert: "Please enter content!",
+        result: "Result",
         tips: {
             veryLow: "Terrible, not recommended",
             low: "Not great, suggest changing",
@@ -43,6 +45,7 @@ const translations = {
         historyBtn: "提出履歴",
         noHistory: "提出履歴はありません",
         alert: "内容を入力してください！",
+        result: "検査結果",
         tips: {
             veryLow: "最悪、使用しないことをお勧めします",
             low: "あまり良くない、変更を提案します",
@@ -56,6 +59,23 @@ const translations = {
 // 当前语言
 let currentLanguage = 'zh';
 
+// 根据百分比获取对应的提示文本
+function getTipText(percentage) {
+    const tips = translations[currentLanguage].tips;
+    
+    if (percentage <= 5) {
+        return tips.veryLow;
+    } else if (percentage <= 25) {
+        return tips.low;
+    } else if (percentage <= 50) {
+        return tips.medium;
+    } else if (percentage <= 75) {
+        return tips.high;
+    } else {
+        return tips.veryHigh;
+    }
+}
+
 // 更新界面语言
 function updateUILanguage(lang) {
     currentLanguage = lang;
@@ -64,9 +84,20 @@ function updateUILanguage(lang) {
     // 更新文本内容
     document.getElementById('title').textContent = t.title;
     document.getElementById('disclaimer').textContent = t.disclaimer;
+    document.getElementById('result').textContent = t.result;
     document.getElementById('textInput').placeholder = t.inputPlaceholder;
     document.getElementById('submitBtn').querySelector('.btn-text').textContent = t.submitBtn;
     document.getElementById('retryBtn').querySelector('span:last-child').textContent = t.retryBtn;
+    
+    // 如果结果卡片正在显示，更新提示文本
+    const resultCard = document.getElementById("resultCard");
+    const progressText = document.getElementById("progressText");
+    const tipText = document.getElementById("tipText");
+    
+    if (resultCard.style.display === "block") {
+        const percentage = parseInt(progressText.textContent);
+        tipText.textContent = getTipText(percentage);
+    }
     
     // 保存语言选择
     localStorage.setItem('preferredLanguage', lang);
@@ -243,23 +274,8 @@ document.addEventListener("DOMContentLoaded", function () {
             progressFill.style.width = percentage + "%";
             progressText.textContent = percentage + "%";
 
-            // 根据百分比设置提示文本
-            let tip = "";
-            const tips = translations[currentLanguage].tips;
-            
-            if (percentage <= 5) {
-                tip = tips.veryLow;
-            } else if (percentage <= 25) {
-                tip = tips.low;
-            } else if (percentage <= 50) {
-                tip = tips.medium;
-            } else if (percentage <= 75) {
-                tip = tips.high;
-            } else {
-                tip = tips.veryHigh;
-            }
-
-            tipText.textContent = tip;
+            // 根据当前语言获取对应的提示文本
+            tipText.textContent = getTipText(percentage);
             tipText.classList.add("show");
         }, 100);
 
