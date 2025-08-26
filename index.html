@@ -3,40 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>网名检测器 by bl1nkCur</title>
+    <title>Nickname Detector by bl1nkCur</title>
     <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-    <!-- 主题切换按钮 -->
-    <button class="theme-toggle" id="themeToggle">🌙</button>
-
-    <!-- 提交历史按钮 -->
-    <button class="history-btn" id="historyBtn">提交历史</button>
-
-    <!-- 提交历史列表 -->
-    <div class="history-list" id="historyList">
-        <ul id="historyItems"></ul>
-    </div>
-
-    <h1>网名检测器</h1>
-    <input type="text" id="textInput" placeholder="在此输入..." />
-
-    <!-- 提交按钮 -->
-    <button id="submitBtn">检测</button>
-
-    <!-- 进度条容器 -->
-    <div class="progress-container" id="progressContainer">
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
+    <div class="app-container">
+        <!-- 顶部导航栏 -->
+        <div class="top-nav">
+            <div class="nav-left">
+                <button class="icon-btn history-btn" id="historyBtn" title="历史记录">
+                    <span class="material-icons">history</span>
+                </button>
+            </div>
+            
+            <div class="nav-center">
+                <h1 id="title">网名检测器</h1>
+            </div>
+            
+            <div class="nav-right">
+                <div class="language-selector" id="languageSelector">
+                    <select id="languageSelect">
+                        <option value="zh">中文</option>
+                        <option value="en">English</option>
+                        <option value="ja">日本語</option>
+                    </select>
+                </div>
+                
+                <button class="icon-btn theme-toggle" id="themeToggle" title="切换主题">
+                    <span class="material-icons">dark_mode</span>
+                </button>
+            </div>
         </div>
-        <div class="progress-text" id="progressText">0%</div>
+
+        <!-- 主要内容区域 -->
+        <main class="main-content">
+            <div class="card input-card">
+                <p id="disclaimer" class="disclaimer">仅供娱乐，请勿当真</p>
+                
+                <div class="input-group">
+                    <input type="text" id="textInput" placeholder="在此输入..." />
+                    <button id="submitBtn" class="primary-btn">
+                        <span class="btn-text">提交</span>
+                        <span class="material-icons">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 结果卡片 -->
+            <div class="card result-card" id="resultCard">
+                <div class="progress-container" id="progressContainer">
+                    <div class="progress-header">
+                        <h3>检测结果</h3>
+                        <div class="progress-value" id="progressText">0%</div>
+                    </div>
+                    
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    
+                    <div class="tip-text" id="tipText"></div>
+                </div>
+                
+                <button id="retryBtn" class="secondary-btn" style="display: none;">
+                    <span class="material-icons">refresh</span>
+                    <span>再试一次</span>
+                </button>
+            </div>
+        </main>
+
+        <!-- 提交历史列表 -->
+        <div class="history-panel" id="historyList">
+            <div class="history-header">
+                <h3>提交历史</h3>
+                <button class="icon-btn close-history" id="closeHistory">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            <ul id="historyItems"></ul>
+        </div>
     </div>
-
-    <!-- ✅ 提示文本 -->
-    <div class="tip-text" id="tipText"></div>
-
-    <!-- 再试一次按钮 -->
-    <button id="retryBtn" style="display: none;">再试一次</button>
 
     <!-- 引入 JS -->
     <script src="script.js"></script>
